@@ -1,0 +1,5 @@
+{
+    "title": "English",
+    "root": true,
+    "pages": ["index", "quick-start", "---basics---", "command-line"]
+}

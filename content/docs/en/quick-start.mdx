@@ -1,0 +1,206 @@
+---
+title: Quick Start
+description: Get started with INJ - a powerful extension for Minecraft functions
+---
+
+## Installation
+
+To get started with INJ, follow these steps:
+
+import { Step, Steps } from 'fumadocs-ui/components/steps';
+ 
+<Steps>
+<Step>
+### Install Node.js
+Install [Node.js](https://nodejs.org/en/download/prebuilt-installer) - the runtime environment required for INJ
+</Step>
+ 
+<Step>
+### Download INJ
+Download [INJ](https://github.com/adyingdeath/INJ/releases/latest) for your operating system (Windows, macOS, or Linux)
+</Step>
+
+<Step>
+Extract the downloaded file
+</Step>
+
+<Step>
+Navigate to the INJ root directory (where `package.json` is located)
+</Step>
+
+<Step>
+Run `node install.js` in your terminal to set up INJ
+</Step>
+
+</Steps>
+
+import { Accordion, Accordions } from 'fumadocs-ui/components/accordion';
+ 
+<Accordions>
+  <Accordion title="If you encounter any issues with install.js">
+You need to install manually.
+
+In the INJ root directory, run:
+
+```bash
+npm install
+```
+
+Then add INJ root directory to your PATH environment variable
+  </Accordion>
+</Accordions>
+
+After installation, you can use the `inj` command from any directory in your terminal.
+
+## File Structure
+
+INJ follows the same file structure as Minecraft datapacks. Your source directory (typically named `src`) mirrors the structure of a datapack's `data` folder:
+
+```
+src/
+├─<your_namespace>
+│  ├─advancements
+│  ├─functions
+│  │  ├─test.mcfunction
+│  │  └─hello.mcfunction
+│  ├─loot_tables
+│  ├─recipes
+│  └─tags
+└─minecraft
+    ├─dimension
+    ├─dimension_type
+    ├─loot_tables
+    └─tags
+```
+
+Place your `src` directory alongside the `data` folder in your datapack. Edit files directly in `src`, then compile using:
+
+```bash
+inj <src_directory>          # Basic compilation
+inj <src_directory> -o <output_directory>    # Specify output directory
+inj <src_directory> --watch  # Watch mode: auto-compile on changes
+```
+
+## INJ Syntax
+
+INJ enhances Minecraft functions by allowing you to write JavaScript code alongside Minecraft commands. While knowing JavaScript can help you unlock INJ's full potential, you only need to understand a few basic concepts to get started:
+
+- [if statements](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/if...else)
+- [while loops](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/while) and [for loops](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for)
+- [let declarations](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let)
+- [Template literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals)
+
+### Running Minecraft Commands
+
+You can directly write Minecraft commands in any line of your INJ code:
+
+```js
+if (2 != 1) {
+    // This line is a Minecraft command that does not require modification
+    say "2 is not equal to 1"
+}
+```
+
+You can also use `INJ.run()` to execute Minecraft commands. This function is particularly useful when you need to incorporate JavaScript variables into your commands:
+
+```js
+// Basic usage
+INJ.run(`say Hello, world!`);
+
+// Using JavaScript variables
+const playerName = "Steve";
+INJ.run(`tell ${playerName} Welcome!`);
+
+// Creating patterns with loops
+for (let i = 0; i < 10; i++) {
+    INJ.run(`setblock ~${i} ~ ~${i} minecraft:stone`);
+}
+```
+
+### Advanced Example: Creating Shapes
+
+Here's how to create a circle of arrows using JavaScript math functions:
+
+```js
+// Create a circle of arrows with radius 10
+const radius = 10;
+for (let i = 0; i < 100; i++) {
+    const angle = (i / 100) * 2 * Math.PI;
+    const x = (Math.cos(angle) * radius).toFixed(2);
+    const z = (Math.sin(angle) * radius).toFixed(2);
+    INJ.run(`summon minecraft:arrow ~${x} ~ ~${z}`);
+}
+```
+
+### Conditional Logic
+
+You can use `if` statements to add conditional logic to your code. The conditions can be written in pure JavaScript syntax. For Minecraft-specific conditions, write them as JavaScript strings, such as `"block ~ ~ ~ minecraft:air"` or `"score @r inj_score = 3"`.
+
+There are three ways to write conditions:
+
+1. `if (<minecraft_condition>) {}`
+2. `if (<js_condition>) {}`
+3. `if (<minecraft_condition>.and(<js_condition>)) {}`
+
+Note: You can use either `and()` or `or()` to combine conditions.
+
+The rest of the `if` statement syntax follows standard JavaScript conventions.
+
+```js
+// Minecraft condition
+if ("block ~ ~ ~ minecraft:stone") {
+    INJ.run(`tellraw @s ["Found a stone block!"]`);
+}
+
+// JavaScript condition
+if (a % 2 == 0) {
+    say "a is even"
+}
+
+// Combined conditions using .and() or .or()
+if ("block ~ ~ ~ minecraft:stone".and(a % 2 == 0)) {
+    say "Here is a stone and 'a' is even!"
+}
+```
+
+### Loops
+
+While INJ supports both `for` and `while` loops, `while` loops currently only work with JavaScript conditions:
+
+```js
+let count = 0;
+while (count < 5) {
+    INJ.run(`say Count: ${count}`);
+    count++;
+}
+```
+
+*We will be supporting mixed JavaScript and Minecraft conditions for while loops in the future.*
+
+
+Here's another example showing how to create a line of stone using a for loop:
+
+```js
+for (let i = 0; i < 10; i++) {
+    INJ.run(`setblock ~${i} ~ ~${i} minecraft:stone`);
+}
+```
+
+![](/assets/line.png)
+
+And an arrow circle:
+
+```js
+// Create a circle of arrows with radius 10
+const radius = 10;
+for (let i = 0; i < 100; i++) {
+    const angle = (i / 100) * 2 * Math.PI;
+    const x = (Math.cos(angle) * radius).toFixed(2);
+    const z = (Math.sin(angle) * radius).toFixed(2);
+    INJ.run(`summon minecraft:arrow ~${x} ~ ~${z}`);
+}
+```
+
+![](/assets/arrow_circle.png)
+
+For more advanced JavaScript concepts and features, refer to [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript).
