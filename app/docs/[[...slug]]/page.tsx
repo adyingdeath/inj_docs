@@ -20,7 +20,10 @@ export default async function Page(props: {
   return (
     <DocsPage
     toc={page.data.toc}
-    tableOfContent={{style: "clerk", single: false}}
+    tableOfContent={{
+      style: "clerk",
+      single: false
+    }}
     full={page.data.full}>
       <DocsTitle>{page.data.title}</DocsTitle>
       <DocsDescription>{page.data.description}</DocsDescription>
