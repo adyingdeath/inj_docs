@@ -1,0 +1,127 @@
+---
+title: Chessboard
+description: A step-by-step tutorial on how to use INJ to create Minecraft function which will generate a chessboard. This is the most detailed tutorial.
+---
+
+**Note: From a beginner's perspective, I will include detailed explanations in the form of collapsible text throughout this tutorial. If you prefer not to see these detailed explanations, feel free to skip them.**
+
+There is an example datapack for this tutorial provided. You can download it [here](/examples/chessboard.zip).
+
+import { Step, Steps } from 'fumadocs-ui/components/steps';
+import { Accordion, Accordions } from 'fumadocs-ui/components/accordion';
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+ 
+<Steps>
+<Step>
+## Create a New Datapack
+Here I create a new folder: `saves > (world name) > datapacks > chessboard`. This step is the same as when you are creating a vanilla datapack. So, create a `pack.mcmeta` file inside `chessboard` folder. The content of `pack.mcmeta` is the same as when you are creating a vanilla datapack. We will do nothing on `pack.mcmeta`.
+</Step>
+
+<Step>
+## Create Src Folder
+In vanilla datapacks, there should be a `data` folder, where all the functions, tags, and other files are stored. However, here, we will create a folder with a name other than `data`, because we will later use INJ to compile INJ code and generate a `data` folder. The structure of the `src` folder is the same as how the `data` folder should be in vanilla datapacks. In this tutorial, we will only create a `functions` folder inside it because we don't need other parts like `tags`, `advancements`, `loot`, etc. You can also create othere folders if you want. Now we've got file structure like this:
+
+```
+chessboard/
+├── pack.mcmeta
+└── src/
+    └── chess/
+        └── functions
+```
+</Step>
+
+<Step>
+## Create a `gen.mcfunction` File
+We will later write INJ code in this file. Now we've got file structure like this:
+
+```
+chessboard/
+├── pack.mcmeta
+└── src/
+    └── chess/
+        └── functions/
+            └── gen.mcfunction
+```
+</Step>
+
+<Step>
+## Write INJ Code
+Use any source code editor you like. Open `gen.mcfunction` file and write the following INJ code:
+
+```javascript
+for (let x = 0; x < 10; x++) {
+    for (let z = 0; z < 10; z++) {
+        if ((x + z) % 2 == 0) {
+            INJ.run(`setblock ~${x} ~ ~${z} minecraft:white_wool`);
+        } else {
+            INJ.run(`setblock ~${x} ~ ~${z} minecraft:black_wool`);
+        }
+    }
+}
+```
+
+<Accordions>
+<Accordion title="Detailed Explanation">
+This code will generate a 10x10 chessboard consisting of white and black wool blocks. The `for` loop is used to iterate over the x and z coordinates of the blocks. The `if` statement is used to check if the sum of the x and z coordinates is even or odd. If it is even, the block is set to white wool, otherwise it is set to black wool. If you still don't understand, you should learn these first:
+
+- [INJ.run](/docs/en/quick-start#running-minecraft-commands)
+- [loops](/docs/en/quick-start#loops)
+</Accordion>
+</Accordions>
+
+</Step>
+
+<Step>
+## Compile INJ Code
+In the `chessboard` folder, open a terminal and run the following command to compile INJ code:
+
+```bash
+inj src
+```
+
+<Accordions>
+<Accordion title="How to open a terminal in chessboard folder?">
+<Tabs items={['Windows', 'Mac', 'Linux']}>
+<Tab value="Windows">
+- Right-click the `chessboard` folder while holding Shift, then select "Open PowerShell window here" or "Open command window here"
+- Navigate to the `chessboard` folder in File Explorer, type `cmd` or `powershell` in the address bar and press Enter
+- Navigate to the `chessboard` folder in File Explorer, right-click on blank parts and select "Open in Terminal"
+- Open Command Prompt or PowerShell and use the `cd` command: `cd path\to\chessboard`
+</Tab>
+
+<Tab value="Mac">
+- Right-click the `chessboard` folder in Finder, select "Services" > "New Terminal at Folder"
+- Open Terminal.app and use the `cd` command: `cd path/to/chessboard`
+- Drag the `chessboard` folder from Finder into the Terminal window
+</Tab>
+
+<Tab value="Linux">
+- Right-click the `chessboard` folder in your file manager, look for "Open in Terminal" (varies by desktop environment)
+- Open your terminal emulator and use the `cd` command: `cd path/to/chessboard`
+- In some file managers, press F4 while the `chessboard` folder is selected
+</Tab>
+</Tabs>
+
+</Accordion>
+</Accordions>
+
+After running the command, you will see a `data` folder was created in the `chessboard` folder.
+
+Your file structure should look like this:
+
+```
+chessboard/
+├── pack.mcmeta
+├── data/
+└── src/
+```
+
+There are generated codes in the `data` folder. Now it's time to see the effect in Minecraft.
+</Step>
+
+<Step>
+## Open the World and Test
+Open the world where you've created the datapack. Run the command `function chess:gen`. You will see a 10x10 chessboard is generated instantly.
+</Step>
+
+</Steps>
