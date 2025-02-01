@@ -101,19 +101,19 @@ if (2 != 1) {
 }
 ```
 
-You can also use `INJ.run()` to execute Minecraft commands. This function is particularly useful when you need to incorporate JavaScript variables into your commands:
+You can also use `$()` to execute Minecraft commands. This function is particularly useful when you need to incorporate JavaScript variables into your commands:
 
 ```js
 // Basic usage
-INJ.run(`say Hello, world!`);
+$(`say Hello, world!`);
 
 // Using JavaScript variables
 const playerName = "Steve";
-INJ.run(`tell ${playerName} Welcome!`);
+$(`tell ${playerName} Welcome!`);
 
 // Creating patterns with loops
 for (let i = 0; i < 10; i++) {
-    INJ.run(`setblock ~${i} ~ ~${i} minecraft:stone`);
+    $(`setblock ~${i} ~ ~${i} minecraft:stone`);
 }
 ```
 
@@ -128,7 +128,7 @@ for (let i = 0; i < 100; i++) {
     const angle = (i / 100) * 2 * Math.PI;
     const x = (Math.cos(angle) * radius).toFixed(2);
     const z = (Math.sin(angle) * radius).toFixed(2);
-    INJ.run(`summon minecraft:arrow ~${x} ~ ~${z}`);
+    $(`summon minecraft:arrow ~${x} ~ ~${z}`);
 }
 ```
 
@@ -149,7 +149,7 @@ The rest of the `if` statement syntax follows standard JavaScript conventions.
 ```js
 // Minecraft condition
 if ("block ~ ~ ~ minecraft:stone") {
-    INJ.run(`tellraw @s ["Found a stone block!"]`);
+    $(`tellraw @s ["Found a stone block!"]`);
 }
 
 // JavaScript condition
@@ -170,7 +170,7 @@ While INJ supports both `for` and `while` loops, `while` loops currently only wo
 ```js
 let count = 0;
 while (count < 5) {
-    INJ.run(`say Count: ${count}`);
+    $(`say Count: ${count}`);
     count++;
 }
 ```
@@ -182,7 +182,7 @@ Here's another example showing how to create a line of stone using a for loop:
 
 ```js
 for (let i = 0; i < 10; i++) {
-    INJ.run(`setblock ~${i} ~ ~${i} minecraft:stone`);
+    $(`setblock ~${i} ~ ~${i} minecraft:stone`);
 }
 ```
 
@@ -197,7 +197,7 @@ for (let i = 0; i < 100; i++) {
     const angle = (i / 100) * 2 * Math.PI;
     const x = (Math.cos(angle) * radius).toFixed(2);
     const z = (Math.sin(angle) * radius).toFixed(2);
-    INJ.run(`summon minecraft:arrow ~${x} ~ ~${z}`);
+    $(`summon minecraft:arrow ~${x} ~ ~${z}`);
 }
 ```
 

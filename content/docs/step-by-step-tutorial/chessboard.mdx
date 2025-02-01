@@ -57,9 +57,9 @@ Use any source code editor you like. Open `gen.inj` file and write the following
 for (let x = 0; x < 10; x++) {
     for (let z = 0; z < 10; z++) {
         if ((x + z) % 2 == 0) {
-            INJ.run(`setblock ~${x} ~ ~${z} minecraft:white_wool`);
+            $(`setblock ~${x} ~ ~${z} minecraft:white_wool`);
         } else {
-            INJ.run(`setblock ~${x} ~ ~${z} minecraft:black_wool`);
+            $(`setblock ~${x} ~ ~${z} minecraft:black_wool`);
         }
     }
 }
@@ -69,7 +69,7 @@ for (let x = 0; x < 10; x++) {
 <Accordion title="Detailed Explanation">
 This code will generate a 10x10 chessboard consisting of white and black wool blocks. The `for` loop is used to iterate over the x and z coordinates of the blocks. The `if` statement is used to check if the sum of the x and z coordinates is even or odd. If it is even, the block is set to white wool, otherwise it is set to black wool. If you still don't understand, you should learn these first:
 
-- [INJ.run](/docs/en/quick-start#running-minecraft-commands)
+- [$](/docs/en/quick-start#running-minecraft-commands)
 - [loops](/docs/en/quick-start#loops)
 </Accordion>
 </Accordions>
